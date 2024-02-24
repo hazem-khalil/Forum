@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
+use App\Models\Reply;
+use App\Models\Thread;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,7 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::truncate();
+        Thread::truncate();
+        Reply::truncate();
+
+        
+        $threads = Thread::factory(50)->create();
+        
+        foreach ($threads as $thread) {
+            Reply::factory(10)->create([
+                'user_id' => $thread->user_id,
+                'thread_id' => $thread->id,
+                'body' => fake()->paragraph
+            ]);
+        }
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
