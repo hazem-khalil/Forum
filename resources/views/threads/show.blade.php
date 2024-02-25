@@ -26,6 +26,15 @@
 							</article>
 						@endforeach
 					</div>
+					@if(auth()->check())
+						<form method="POST" action="{{ $thread->path() . '/replies' }}">
+							@csrf
+							<textarea name="body" id="body" cols="20" rows="3" placeholder="Have you had on your head?"></textarea>
+							<button type="submit">Submit</button>
+						</form>
+					@else
+						<p>Please <a href="/login">signIn</a> to participate on threads.</p>
+					@endif
 
 					<div>
 						<a href="/threads">Return back</a>
