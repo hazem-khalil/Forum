@@ -5,7 +5,12 @@
 		<link rel="stylesheet" href="/app.css">
 	</head>
 	<body>
-		<h1 class="bold">{{ $thread->title }}</h1>
+		<div>
+			<h1 class="bold">
+				<a href="#">{{ $thread->creator->name }}</a> posted:	
+				{{ $thread->title }}
+			</h1>
+		</div>
 			
 		<hr>
 

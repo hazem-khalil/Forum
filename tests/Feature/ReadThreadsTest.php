@@ -28,7 +28,7 @@ class ReadThreadsTest extends TestCase
     /** @test */
     public function a_user_can_read_a_single_thread(): void
     {
-        $this->get('/threads/' . $this->thread->id)
+        $this->get($this->thread->path())
             ->assertSee($this->thread->title);        
     }
 
@@ -40,7 +40,7 @@ class ReadThreadsTest extends TestCase
             'user_id' => $this->thread->user_id
         ]);
 
-        $response = $this->get('/threads/' . $this->thread->id);
+        $response = $this->get($this->thread->path());
 
         $response->assertSee($reply->body);
     }
