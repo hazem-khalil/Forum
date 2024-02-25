@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Reply;
 use App\Models\User;
+use App\Models\Channel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,7 +16,7 @@ class Thread extends Model
 
     public function path()
     {
-        return "/threads/" . $this->id;
+        return "/threads/{$this->channel->slug}/{$this->id}";
     }
 
     public function replies()
@@ -26,7 +27,12 @@ class Thread extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
-    } 
+    }
+
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
+    }
 
     public function addReply(array $reply)
     {

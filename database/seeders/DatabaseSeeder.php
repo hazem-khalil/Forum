@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Reply;
 use App\Models\Thread;
+use App\Models\Channel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,8 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::truncate();
-        Thread::truncate();
         Reply::truncate();
+        Thread::truncate();
+        Channel::truncate();
 
         
         $threads = Thread::factory(50)->create();

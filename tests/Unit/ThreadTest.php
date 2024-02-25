@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Thread;
+use App\Models\Channel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -22,15 +23,23 @@ class ThreadTest extends TestCase
     }
 
     /** @test */
-    public function a_thread_has_replies(): void
+    public function a_thread_can_make_a_string_path(): void
     {
-        $this->assertInstanceOf(Collection::class, $this->thread->replies);
+        $string = "/threads/{$this->thread->channel->slug}/{$this->thread->id}";
+
+        $this->assertEquals($string, $this->thread->path());
     }
 
     /** @test */
     public function a_thread_has_a_creator(): void
     {
         $this->assertInstanceOf(User::class, $this->thread->creator);
+    }
+
+    /** @test */
+    public function a_thread_has_replies(): void
+    {
+        $this->assertInstanceOf(Collection::class, $this->thread->replies);
     }
 
     /** @test */
@@ -43,5 +52,11 @@ class ThreadTest extends TestCase
         ]);
 
         $this->assertCount(1, $this->thread->replies);
+    }
+
+    /** @test */
+    public function a_thread_belongs_to_a_channel(): void
+    {
+        $this->assertInstanceOf(Channel::class, $this->thread->channel);
     }
 }
