@@ -3,6 +3,17 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('All Threads') }}
         </h2>
+
+        <label for="channels">Choose Channel:</label>
+
+        <select name="channels" id="channels">
+            @foreach(App\Models\Channel::all() as $channel)
+              
+              <a href="/threads/{{$channel->slug }}">
+                  <option value="<a>">{{$channel->name}}</option>
+              </a>
+          @endforeach
+        </select>
     </x-slot>
 
     <div class="py-12">
