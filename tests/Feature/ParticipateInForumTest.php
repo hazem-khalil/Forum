@@ -28,11 +28,23 @@ class ParticipateInForumTest extends TestCase
         $this->be($user = User::factory()->create());
 
         $thread = Thread::factory()->create();
-
         $reply = Reply::factory()->make();
+
         $this->post($thread->path().'/replies', $reply->toArray());
 
         $this->get($thread->path())
             ->assertSee($reply->body);
+    }
+
+    /** @test */
+    public function a_reply_requires_a_body()
+    {
+        $this->be($user = User::factory()->create());
+
+        $thread = Thread::factory()->create();
+        $reply = Reply::factory()->make(['body' => null]);
+
+        $this->post($thread->path().'/replies', $reply->toArray())
+            ->assertSessionHasErrors('body');
     }
 }
