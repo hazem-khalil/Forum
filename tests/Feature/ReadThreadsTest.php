@@ -57,4 +57,6 @@ class ReadThreadsTest extends TestCase
             ->assertSee($threadInChannel->title)
             ->assertDontsee($threadNotInChannel->title); 
     }
+
+    
 }

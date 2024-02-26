@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Channel;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // * means share this varaible with every single view
+        \View::composer('*', function ($view) {
+            $view->with('channels', Channel::all());
+        });
+
+        // \View::share('channels', Channel::all());
     }
 }
