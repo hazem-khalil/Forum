@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\User;
 use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\Channel;
@@ -55,8 +56,19 @@ class ReadThreadsTest extends TestCase
 
         $this->get('/threads/' . $channel->slug)
             ->assertSee($threadInChannel->title)
-            ->assertDontsee($threadNotInChannel->title); 
+            ->assertDontSee($threadNotInChannel->title); 
     }
 
-    
+    /** @test */
+    public function a_user_can_filter_threads_by_any_username():void
+    {
+        $this->be(User::factory()->create(['name' => 'hazemKhalil']));
+
+        $threadByHazem = Thread::factory()->create(['user_id' => auth()->id()]);
+        $threadNotByHazem = Thread::factory()->create();
+
+        $this->get('/threads?by=hazemKhalil')
+            ->assertSee($threadByHazem->title)
+            ->assertDontSee($threadNotByHazem->title);
+    }
 }

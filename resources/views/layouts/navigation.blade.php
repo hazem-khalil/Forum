@@ -15,6 +15,12 @@
                     <x-nav-link href="/threads">
                         {{ __('All Threads') }}
                     </x-nav-link>
+
+                    @if(auth()->check())
+                        <x-nav-link href="/threads?by={{ auth()->user()->name }}">
+                            {{ __('My Threads') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
