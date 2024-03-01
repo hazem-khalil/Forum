@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ThreadsController;
 use App\Http\Controllers\RepliesController;
+use App\Http\Controllers\FavoritesController;
 
 
 Route::get('/', function () {
@@ -24,5 +25,7 @@ Route::get('/threads/{channel}/{thread}', [ThreadsController::class, 'show']);
 Route::post('/threads', [ThreadsController::class, 'store']);
 
 Route::post('/threads/{channel}/{thread}/replies', [RepliesController::class, 'store']);
+
+Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store']);
 
 require __DIR__.'/auth.php';
