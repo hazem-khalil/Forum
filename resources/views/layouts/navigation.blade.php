@@ -21,6 +21,10 @@
                             {{ __('My Threads') }}
                         </x-nav-link>
                     @endif
+
+                    <x-nav-link href="/threads?popular=1">
+                        {{ __('Popular') }}
+                    </x-nav-link>
                 </div>
             </div>
 
