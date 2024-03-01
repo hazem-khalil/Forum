@@ -15,13 +15,25 @@
 					<h1 class="font-semibold mt-5 mb-4">Replies</h1>
 					<div>
 						@foreach($thread->replies as $reply)
-							<article class="p-14">
-								<h2 class="font-semibold">
-									<a href="#">{{ $reply->owner->name }}</a>
-								</h2> 
-								<div class="mt-3 mb-3"> <b>said:</b> {{ $reply->body }}</div>
-								<div>{{ $reply->created_at->diffForHumans() }}</div>
+							<article class="py-12">
+								<div>
+									<h2 class="font-semibold">
+										<a href="#">{{ $reply->owner->name }}</a>
+									</h2> 
+									<div class="mt-3 mb-3"> <b>said:</b> {{ $reply->body }}</div>
+									<div>{{ $reply->created_at->diffForHumans() }}</div>
+									</div>
 
+								<div class="font-semibold space-x-8">
+									<form method="POST" action="/replies/{{ $reply->id }}/favorites">
+										@csrf
+										<button type="submit" {{ $reply->isFavorited()  ? 'disabled' : ''}}>
+											{{ $reply->favorites()->count() }} Favorite
+										</button>
+									</form>
+								</div>
+
+								<hr>
 							</article>
 						@endforeach
 					</div>
