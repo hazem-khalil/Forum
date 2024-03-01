@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Thread;
 use App\Models\Channel;
+use App\Filters\ThreadFilters;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -16,18 +17,12 @@ class ThreadsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Channel $channel)
+    public function index(Channel $channel, ThreadFilters $filters)
     {
-        if ($channel->exists) { 
-            $threads = $channel->threads()->latest();
-        } else {
-            $threads = Thread::latest();
-        }
-        
-        if ($userName = request('by')) {
-            $user = User::where('name', $userName)->firstOrFail();
+        $threads = Thread::latest()->filter($filters);
 
-            $threads->where('user_id', $user->id);
+        if ($channel->exists) {
+            $threads = Thread::where('channel_id', $channel->id);
         }
 
         $threads = $threads->get();
