@@ -25,11 +25,16 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @foreach($threads as $thread)
-						<article class="p-14">
-							<h2 class="font-semibold">
+						<article class="p-14 py-12">
+							<!-- <h2 class="font-semibold"> -->
+                            <h2 class="font-semibold space-x-8">
 								<a href="{{ $thread->path() }}">{{ $thread->title }}</a>
+                                <a href="{{ $thread->path() }}">
+                                    {{ $thread->replies_count }} 
+                                    <?= $thread->replies_count === 1 ? 'reply' : 'replies' ?>
+                                </a>
 							</h2>
-							<div>{{ $thread->body }}</div>
+							<div class="py-12 space-x-8">{{ $thread->body }}</div>
 						</article>
 						<hr>
 					@endforeach
