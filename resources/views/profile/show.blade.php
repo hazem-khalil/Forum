@@ -10,7 +10,9 @@
             @foreach($activities as $data => $activity)
                 <h1 class="py-3">{{ $data }}</h1>
                     @foreach ($activity as $record)
-                        @include ("profile.activities.{$record->type}", ['activity' => $record])
+                        @if(view()->exists("profile.activities.{$record->type}"))
+                            @include ("profile.activities.{$record->type}", ['activity' => $record])
+                        @endif
                     @endforeach
                 <hr>    
             @endforeach

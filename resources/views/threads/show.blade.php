@@ -26,7 +26,8 @@
 					<h1 class="font-semibold mt-5 mb-4">Replies</h1>
 					<div>
 						@foreach($thread->replies as $reply)
-							<article class="py-12">
+						<!-- This id not for css it's used as a hash for a thread. -->
+							<article id="reply-{{ $reply->id }}" class="py-12">
 								<div>
 									<h2 class="font-semibold">
 										<a href="{{route('profile.show', $reply->owner->name)}}">{{ $reply->owner->name }}</a>
