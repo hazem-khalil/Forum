@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Activity;
 
 class ProfileController extends Controller
 {
@@ -16,16 +17,10 @@ class ProfileController extends Controller
     {
         return view('profile.show', [
             'profileUser' => $user,
-            'activities' => $this->getActivity($user)
+            'activities' => Activity::feed($user)
         ]);
     }
 
-    protected function getActivity($user)
-    {
-        return $user->activity()->latest()->with('subject')->get()->groupBy(function ($activity) {
-            return $activity->created_at->format('Y-m-d');
-        });
-    }
     /**
      * Display the user's profile form.
      */

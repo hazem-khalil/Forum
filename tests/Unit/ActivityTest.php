@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Reply;
 use App\Models\Thread;
@@ -41,5 +42,25 @@ class ActivityTest extends TestCase
         Reply::factory()->create();
         
         $this->assertEquals(2, Activity::count());
+    }
+
+    /** @test */
+    public function it_fetches_a_feed_for_any_user()
+    {
+        $this->actingAs($user = User::factory()->create());
+
+        Thread::factory(2)->create();
+
+        auth()->user()->activity()->first()->update(['created_at' => Carbon::now()->subWeek() ]);
+
+        $feed = Activity::feed(auth()->user());
+
+        $this->assertTrue($feed->keys()->contains(
+            Carbon::now()->format('Y-m-d')
+        ));
+
+        $this->assertTrue($feed->keys()->contains(
+            Carbon::now()->subWeek()->format('Y-m-d')
+        ));
     }
 }

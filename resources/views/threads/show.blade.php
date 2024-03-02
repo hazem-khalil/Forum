@@ -29,7 +29,7 @@
 							<article class="py-12">
 								<div>
 									<h2 class="font-semibold">
-										<a href="#">{{ $reply->owner->name }}</a>
+										<a href="{{route('profile.show', $reply->owner->name)}}">{{ $reply->owner->name }}</a>
 									</h2> 
 									<div class="mt-3 mb-3"> <b>said:</b> {{ $reply->body }}</div>
 									<div>{{ $reply->created_at->diffForHumans() }}</div>
