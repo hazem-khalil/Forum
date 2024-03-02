@@ -39,7 +39,7 @@ class ActivityTest extends TestCase
         $this->actingAs($user = User::factory()->create());
 
         Reply::factory()->create();
-
+        
         $this->assertEquals(2, Activity::count());
     }
 }

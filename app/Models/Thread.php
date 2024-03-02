@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Reply;
-use App\Models\User;
-use App\Models\Channel;
+use App\Models\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Thread extends Model
 {
-    use HasFactory;
+    use HasFactory, RecordsActivity;
 
     protected $guarded = [];
 
@@ -22,15 +20,6 @@ class Thread extends Model
 
         static::addGlobalScope('replyCount', function ($builder) {
             $builder->withCount('replies');
-        });
-
-        static::created(function ($thread) {
-            Activity::create([
-                'user_id' => auth()->id(),
-                'subject_id' => $thread->id,
-                'subject_type' => self::class,
-                'type' => 'created_thread'
-            ]);
         });
     }
 
