@@ -23,6 +23,15 @@ class Thread extends Model
         static::addGlobalScope('replyCount', function ($builder) {
             $builder->withCount('replies');
         });
+
+        static::created(function ($thread) {
+            Activity::create([
+                'user_id' => auth()->id(),
+                'subject_id' => $thread->id,
+                'subject_type' => self::class,
+                'type' => 'created_thread'
+            ]);
+        });
     }
 
     public function path()
