@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thread;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller
@@ -24,6 +25,15 @@ class RepliesController extends Controller
             'user_id' => auth()->id(),
             'thread_id' => $thread->id
         ]);
+
+        return back();
+    }
+
+    public function destroy(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+
+        $reply->delete();
 
         return back();
     }

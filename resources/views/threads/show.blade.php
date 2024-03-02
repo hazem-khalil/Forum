@@ -45,6 +45,16 @@
 									</form>
 								</div>
 
+								@can ('update', $reply)
+									<div class="font-semibold space-x-8">
+										<form method="POST" action="/replies/{{ $reply->id }}">
+											@csrf
+											@method('DELETE')
+											<button type="submit">Delete Me</button>
+										</form>
+									</div>
+								@endcan
+
 								<hr>
 							</article>
 						@endforeach
