@@ -7,7 +7,7 @@
                 <div class="p-6 text-gray-900">
                     <div class="flex p-15">
 		                <h1 class="font-semibold mb-4">
-							<a href="#">{{ $thread->creator->name }}</a> posted: {{ $thread->title }}
+							<a href="{{route('profile.show', $thread->creator)}}">{{ $thread->creator->name }}</a> posted: {{ $thread->title }}
 						</h1>
 
 						@can ('update', $thread)
