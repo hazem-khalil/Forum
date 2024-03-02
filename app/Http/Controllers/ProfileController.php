@@ -16,8 +16,15 @@ class ProfileController extends Controller
     {
         return view('profile.show', [
             'profileUser' => $user,
-            'threads' => $user->threads()->paginate(2)
+            'activities' => $this->getActivity($user)
         ]);
+    }
+
+    protected function getActivity($user)
+    {
+        return $user->activity()->latest()->with('subject')->get()->groupBy(function ($activity) {
+            return $activity->created_at->format('Y-m-d');
+        });
     }
     /**
      * Display the user's profile form.
