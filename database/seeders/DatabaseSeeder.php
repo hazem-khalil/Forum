@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate();
-        Reply::truncate();
-        Thread::truncate();
-        Channel::truncate();
+        // User::truncate();
+        // Reply::truncate();
+        // Thread::truncate();
+        // Channel::truncate();
 
         
         $threads = Thread::factory(50)->create();
